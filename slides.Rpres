@@ -277,11 +277,13 @@ library(magrittr)
 dlply(iris, ~ Species, '[', 1:3) %>% llply(., cor)
 ``` 
 
+
 plyr + magrittr + evolqg
 ========================================================
 
 ```{r}
 library(evolqg)
+
 data(dentus)
 dlply(dentus, ~ species, '[', 1:4) %>% 
   llply(cov) %>% 
