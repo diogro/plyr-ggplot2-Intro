@@ -3,8 +3,8 @@ plyr & ggplot2
 author: Diogo Melo
 date: 2015/04/30
 font-family: 'Helvetica'
-width: 1440
-height: 900
+width: 1366 
+height: 768
 
 plyr
 ========================================================
@@ -18,6 +18,7 @@ Queremos aplicar uma mesma função em subconjuntos
 - Com algumas facilidades importantes
 
 ***
+
 ![](slides-figure/splitApplyCombine.png)
  
 Syntaxe geral
@@ -78,7 +79,6 @@ l_ply
 laply(simple_list, mean)
 ```
 ```{r}
-#identico a:
 ldply(simple_list, quantile)
 ```
 
@@ -180,7 +180,107 @@ d_ply
 
 d_ply é a função mais complexa
 
- - seu uso geralmente envolve o uso de funções auxiliare; 
+ - seu uso geralmente envolve o uso de funções auxiliares; 
  - muita da funcionalidade básica é mais simples no dplyr;
- - ainda é útil para operações complicadas, que operam em
-    mais de uma linha simultaneamente.
+ - ainda é útil para operações complicadas, que operam em mais de uma linha simultaneamente.
+ - básicamente um aggregate-on-steroids
+ 
+d_ply
+========================================================
+
+```{r}
+library(gapminder)
+str(gapminder)
+``` 
+ 
+d_ply
+========================================================
+
+O segundo argumento é um coluna do data.frame que será usada para subdividi-lo
+
+```{r}
+dlply(gapminder, 'country')[[1]]
+``` 
+
+d_ply
+========================================================
+
+Principal ponto de discórdia: 
+  - O data.frame é subdividido de acordo com uma (ou mais) coluna(s) de indicadores, mas os "sub"-data.frames ainda contém essas colunas!
+
+```{r}
+dlply(gapminder, 'country')[[1]]
+```
+
+d_ply
+========================================================
+
+Isso é um problema quando queremos fazer operações nas colunas numéricas apenas:
+
+```{r}
+head(ddply(gapminder, 'country', mean))
+```
+
+d_ply
+========================================================
+
+Isso é um problema quando queremos fazer operações nas colunas numéricas apenas:
+
+```{r, eval=FALSE}
+head(ddply(gapminder, 'country', mean))
+```
+
+A função numcolwise() resolve esse problema, mas ela é aplicada na função!!
+
+```{r}
+head(ddply(gapminder, .(country), numcolwise(mean)))
+```
+
+
+d_ply
+========================================================
+
+A função .() permite omitir as aspas e fazer operações nas colunas:
+
+```{r}
+head(ddply(gapminder, .(country, log(year)), numcolwise(mean)), 12)
+``` 
+
+
+d_ply
+========================================================
+
+Podemos também usar formulas:
+
+```{r}
+head(ddply(gapminder, ~ country + log(year), numcolwise(mean)), 12)
+``` 
+
+d_ply
+========================================================
+
+- Se quisermos operar sobre mais de uma coluna numérica simultaneamente, o numcolwise não serve
+- Nesse caso, o melhor é usar uma função que faça a indexação desejada:
+
+```{r}
+l_iris <- dlply(iris, ~ Species, '[', 1:3)
+llply(l_iris, cor)[[1]]
+``` 
+
+d_ply
+========================================================
+
+Ou, usando o pipe (%>%) do pacote magrittr
+
+```{r}
+library(magrittr)
+dlply(iris, ~ Species, '[', 1:3) %>% llply(., cor)
+``` 
+
+d_ply
+========================================================
+
+```{r}
+library(evolqg)
+dlply(iris, ~ Species, '[', 1:3) %>% llply(cov) %>% ldply(MeanMatrixStatistics, .id = 'Species')
+``` 
