@@ -297,7 +297,7 @@ left: 35%
   
 ***
 
-```{r, echo=FALSE}
+```{r intro, echo=FALSE}
 library(ggplot2)
 ggplot(gapminder, aes(year, lifeExp, group = interaction(year, continent), color = continent)) + 
   geom_boxplot() + geom_jitter() + theme_bw() + labs(x = 'year', y = 'Life Expectancy') + 
@@ -348,7 +348,7 @@ ggplot(gapminder, aes(x = log(gdpPercap),
 ggplot - mudando cores
 =======================================================
 
-```{r, echo=FALSE}
+```{r year, echo=FALSE, figs.only=TRUE}
 ggplot(gapminder, aes(x = log(gdpPercap), 
                       y = log(lifeExp),
                       group = country, 
@@ -357,7 +357,7 @@ ggplot(gapminder, aes(x = log(gdpPercap),
 
 ***
 
-```{r, echo=FALSE}
+```{r continent, echo=FALSE, figs.only=TRUE}
 ggplot(gapminder, aes(x = log(gdpPercap), 
                       y = log(lifeExp),
                       group = country, 
