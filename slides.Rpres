@@ -1,0 +1,186 @@
+plyr & ggplot2
+========================================================
+author: Diogo Melo
+date: 2015/04/30
+font-family: 'Helvetica'
+width: 1440
+height: 900
+
+plyr
+========================================================
+
+Plyr é um conjunto de funções que substituem a familia apply.
+
+Queremos aplicar uma mesma função em subconjuntos
+
+- Mais flexivel 
+- Fácil de paralelizar
+- Com algumas facilidades importantes
+
+***
+![](slides-figure/splitApplyCombine.png)
+ 
+Syntaxe geral
+========================================================
+
+```{r, eval=FALSE}
+__ply()
+```
+
+Primeira letra indica o tipo da entrada:
+
+```{r, eval=FALSE}
+a_ply(), d_ply(), l_ply()
+```
+
+Segunda letra indica o tipo da saída:
+
+```{r, eval=FALSE}
+_aply(), _dply(), _lply()
+```
+
+ - (a)rray
+ - (l)ist
+ - (d)ata.frame
+
+l_ply
+========================================================
+
+  Listas tem divisão natural, então basta identificar o objeto de entrada e a função
+  
+```{r}
+library(plyr)
+simple_list <- list('zero' = rnorm(5), 
+                    'cinco' = rnorm(5, 5), 
+                    'dez' = rnorm(5, 10))
+print(simple_list)
+```
+
+l_ply
+========================================================
+
+  Listas tem divisão natural, então basta identificar o objeto de entrada e a função
+
+```{r}
+llply(simple_list, sum)
+```
+```{r, eval = FALSE}
+#identico a:
+lapply(simple_list, sum)
+```
+
+l_ply
+========================================================
+
+  Podemos também mudar o tipo da saida (diferente do lapply())
+
+```{r}
+laply(simple_list, mean)
+```
+```{r}
+#identico a:
+ldply(simple_list, quantile)
+```
+
+l_ply
+========================================================
+
+  Bom para conversões
+
+```{r}
+laply(simple_list, identity)
+```
+
+```{r}
+ldply(simple_list, identity)
+```
+
+a_ply
+========================================================
+
+  Arrays não tem divisão natural, então um segundo argumento é necessario para
+  indicar o sentido da operação sendo feita
+  
+```{r}
+str(iris3)
+```
+```{r}
+aaply(iris3, 3, colMeans)
+```
+
+Levemente diferente do apply.
+
+```{r}
+apply(iris3, 3, colMeans)
+```
+
+a_ply
+========================================================
+
+```{r}
+aaply(iris3, 3, colMeans)
+```
+
+Ou...
+
+```{r}
+aaply(iris3, c(2, 3), mean)
+```
+
+a_ply
+========================================================
+
+Novamente podemos mudar a saída
+
+ - data.frame:
+ 
+```{r}
+adply(iris3, 3, colMeans, .id = 'Species')
+```
+
+a_ply
+========================================================
+
+Novamente podemos mudar a saída
+
+- list: 
+
+```{r}
+alply(iris3, 3, colMeans, .dims = TRUE)
+```
+
+a_ply
+========================================================
+
+O a_ply() tb é útil para converter arrays:
+
+ - data.frames
+
+```{r}
+iris_df = adply(iris3, 3, .id = 'Species')
+head(iris_df)
+```
+
+a_ply
+========================================================
+
+O a_ply() tb é útil para converter arrays:
+
+ - listas
+
+```{r}
+iris_list = alply(iris3, 3, .dims = TRUE)
+names(iris_list)
+class(iris_list[[1]])
+str(iris_list[[1]])
+```
+
+d_ply
+========================================================
+
+d_ply é a função mais complexa
+
+ - seu uso geralmente envolve o uso de funções auxiliare; 
+ - muita da funcionalidade básica é mais simples no dplyr;
+ - ainda é útil para operações complicadas, que operam em
+    mais de uma linha simultaneamente.
