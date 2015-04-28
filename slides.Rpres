@@ -283,9 +283,83 @@ plyr + magrittr + evolqg
 
 ```{r}
 library(evolqg)
-
 data(dentus)
 dlply(dentus, ~ species, '[', 1:4) %>% 
   llply(cov) %>% 
   ldply(MeanMatrixStatistics, .id = 'Species')
 ``` 
+
+ggplot2
+========================================================
+left: 35%
+
+  "ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics."
+  
+***
+
+```{r, echo=FALSE}
+library(ggplot2)
+ggplot(gapminder, aes(year, lifeExp, group = interaction(year, continent), color = continent)) + 
+  geom_boxplot() + geom_jitter() + theme_bw() + labs(x = 'year', y = 'Life Expectancy') + 
+  geom_smooth(aes(group = continent), method = 'lm')
+```
+
+ggplot
+=======================================================
+
+Todas os plots no ggplot tem a mesma estrutura e dependem bastante do objeto de entrada:
+
+ - SEMPRE um data.frame;
+ - Cada linha é uma observação;
+ - Geralmente é melhor usar data.frames no formato "narrow";
+ - Cores, grupos, separações em paineis são todas definidas por fatores (yay!!)
+
+ggplot
+=======================================================
+
+Regra geral:
+
+```{r, eval=FALSE}
+ggplot(data_frame_entrada, aes(x = coluna_eixo_x, 
+                               y = coluna_eixo_y,
+                               group = coluna_agrupadora, 
+                               color = coluna_das_cores)) 
++ geom_tipo_do_grafico(opcoes que não dependem dos dados, 
+                       aes(opcoes que dependem))
+```
+
+ggplot - mudando cores
+=======================================================
+
+```{r, eval=FALSE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = year)) + geom_point()
+```
+
+```{r, eval=FALSE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = continent)) + geom_point()
+```
+
+ggplot - mudando cores
+=======================================================
+
+```{r, echo=FALSE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = year)) + geom_point()
+```
+
+***
+
+```{r, echo=FALSE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = continent)) + geom_point()
+```

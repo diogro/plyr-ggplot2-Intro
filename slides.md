@@ -63,13 +63,13 @@ print(simple_list)
 
 ```
 $zero
-[1] -0.6796086  0.3866186 -0.6172339 -0.9077362 -0.7726958
+[1]  0.33268115  0.41956258 -0.01086907 -1.03039626  1.83539513
 
 $cinco
-[1] 4.225271 5.632262 4.535643 6.700168 5.154281
+[1] 5.508499 3.457051 4.532730 3.858916 4.799289
 
 $dez
-[1] 11.190056 11.742336  8.128370  9.400028 10.941531
+[1] 11.497184 10.238236 10.954535  8.529352  9.320174
 ```
 
 l_ply
@@ -84,13 +84,13 @@ llply(simple_list, sum)
 
 ```
 $zero
-[1] -2.590656
+[1] 1.546374
 
 $cinco
-[1] 26.24763
+[1] 22.15648
 
 $dez
-[1] 51.40232
+[1] 50.53948
 ```
 
 ```r
@@ -109,7 +109,7 @@ laply(simple_list, mean)
 ```
 
 ```
-[1] -0.5181312  5.2495251 10.2804639
+[1]  0.3092747  4.4312969 10.1078964
 ```
 
 ```r
@@ -117,10 +117,10 @@ ldply(simple_list, quantile)
 ```
 
 ```
-    .id         0%        25%        50%        75%       100%
-1  zero -0.9077362 -0.7726958 -0.6796086 -0.6172339  0.3866186
-2 cinco  4.2252711  4.5356428  5.1542812  5.6322622  6.7001681
-3   dez  8.1283697  9.4000278 10.9415305 11.1900557 11.7423359
+    .id        0%         25%        50%        75%      100%
+1  zero -1.030396 -0.01086907  0.3326811  0.4195626  1.835395
+2 cinco  3.457051  3.85891583  4.5327304  4.7992889  5.508499
+3   dez  8.529352  9.32017438 10.2382360 10.9545352 11.497184
 ```
 
 l_ply
@@ -134,10 +134,10 @@ laply(simple_list, identity)
 ```
 
 ```
-              1          2          3          4          5
-[1,] -0.6796086  0.3866186 -0.6172339 -0.9077362 -0.7726958
-[2,]  4.2252711  5.6322622  4.5356428  6.7001681  5.1542812
-[3,] 11.1900557 11.7423359  8.1283697  9.4000278 10.9415305
+              1          2           3         4        5
+[1,]  0.3326811  0.4195626 -0.01086907 -1.030396 1.835395
+[2,]  5.5084989  3.4570506  4.53273041  3.858916 4.799289
+[3,] 11.4971842 10.2382360 10.95453522  8.529352 9.320174
 ```
 
 
@@ -146,10 +146,10 @@ ldply(simple_list, identity)
 ```
 
 ```
-    .id         V1         V2         V3         V4         V5
-1  zero -0.6796086  0.3866186 -0.6172339 -0.9077362 -0.7726958
-2 cinco  4.2252711  5.6322622  4.5356428  6.7001681  5.1542812
-3   dez 11.1900557 11.7423359  8.1283697  9.4000278 10.9415305
+    .id         V1         V2          V3        V4       V5
+1  zero  0.3326811  0.4195626 -0.01086907 -1.030396 1.835395
+2 cinco  5.5084989  3.4570506  4.53273041  3.858916 4.799289
+3   dez 11.4971842 10.2382360 10.95453522  8.529352 9.320174
 ```
 
 a_ply
@@ -582,7 +582,6 @@ plyr + magrittr + evolqg
 
 ```r
 library(evolqg)
-
 data(dentus)
 dlply(dentus, ~ species, '[', 1:4) %>% 
   llply(cov) %>% 
@@ -591,15 +590,78 @@ dlply(dentus, ~ species, '[', 1:4) %>%
 
 ```
   Species MeanSquaredCorrelation      pc1%       ICV respondability
-1       A             0.26304221 0.5942705 1.0301592      1.2201763
-2       B             0.12459035 0.4659021 0.7065384      1.1208369
-3       C             0.15157218 0.4865811 0.7509757      1.1517633
-4       D             0.42069839 0.7331679 1.2971322      1.3973519
-5       E             0.04036267 0.4049835 0.4711963      0.9288193
+1       A             0.26304221 0.5942705 1.0301592      1.2544805
+2       B             0.12459035 0.4659021 0.7065384      1.1259118
+3       C             0.15157218 0.4865811 0.7509757      1.1704113
+4       D             0.42069839 0.7331679 1.2971322      1.3605219
+5       E             0.04036267 0.4049835 0.4711963      0.9247123
   evolvability conditional.evolvability  autonomy flexibility constraints
-1    0.9741493                0.4832385 0.5105780   0.7698899   0.7427220
-2    0.9991335                0.7312723 0.7296125   0.8798285   0.6546941
-3    1.0142536                0.6699729 0.6492214   0.8652515   0.6709792
-4    1.0503407                0.4823967 0.5222902   0.7275053   0.8762329
-5    0.8815913                0.7841164 0.8904736   0.9477207   0.6027759
+1    1.0165958                0.5093599 0.5136947   0.7810328   0.7463907
+2    1.0055621                0.7379434 0.7346967   0.8824744   0.6612709
+3    1.0283403                0.6783924 0.6465026   0.8636097   0.6968752
+4    1.0217983                0.4744690 0.5342742   0.7319665   0.8621527
+5    0.8776711                0.7814760 0.8914461   0.9478219   0.5997511
 ```
+
+ggplot2
+========================================================
+left: 35%
+
+  "ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics."
+  
+***
+
+![plot of chunk unnamed-chunk-31](slides-figure/unnamed-chunk-31-1.png) 
+
+ggplot
+=======================================================
+
+Todas os plots no ggplot tem a mesma estrutura e dependem bastante do objeto de entrada:
+
+ - SEMPRE um data.frame;
+ - Cada linha é uma observação;
+ - Geralmente é melhor usar data.frames no formato "narrow";
+ - Cores, grupos, separações em paineis são todas definidas por fatores (yay!!)
+
+ggplot
+=======================================================
+
+Regra geral:
+
+
+```r
+ggplot(data_frame_entrada, aes(x = coluna_eixo_x, 
+                               y = coluna_eixo_y,
+                               group = coluna_agrupadora, 
+                               color = coluna_das_cores)) 
++ geom_tipo_do_grafico(opcoes que não dependem dos dados, 
+                       aes(opcoes que dependem))
+```
+
+ggplot - mudando cores
+=======================================================
+
+
+```r
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = year)) + geom_point()
+```
+
+
+```r
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = continent)) + geom_point()
+```
+
+ggplot - mudando cores
+=======================================================
+
+![plot of chunk unnamed-chunk-35](slides-figure/unnamed-chunk-35-1.png) 
+
+***
+
+![plot of chunk unnamed-chunk-36](slides-figure/unnamed-chunk-36-1.png) 
