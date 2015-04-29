@@ -17,11 +17,13 @@ Queremos aplicar uma mesma função em subconjuntos
 - Fácil de paralelizar
 - Com algumas facilidades importantes
 
+[Slides](https://github.com/diogro/plyr-ggplot2-Intro/blob/master/slides.md)
+
 ***
 
 ![](slides-figure/splitApplyCombine.png)
  
-Syntaxe geral
+Sintaxe geral
 ========================================================
 
 ```{r, eval=FALSE}
@@ -517,5 +519,15 @@ geom_histogram()
 geom_jitter()
 geom_text(aes(label = coluna_texto))
 geom_violin()
+geom_errorbar(aes(ymax, ymin))
 ...
 ```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+Documentação
+
+- http://docs.ggplot2.org/current/
+- How to format plots for publication using ggplot2 - http://www.noamross.net/blog/2013/11/20/formatting-plots-for-pubs.html 
+- http://stackoverflow.com/
