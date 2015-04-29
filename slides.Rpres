@@ -363,3 +363,159 @@ ggplot(gapminder, aes(x = log(gdpPercap),
                       group = country, 
                       color = continent)) + geom_point()
 ```
+
+ggplot - objetos graficos
+=======================================================
+
+- No ggplot os objetos gráficos podem ser manipulados ou armazenados, diferente dos plots padrão onde os gráficos são "efeitos colaterais"
+
+- Isso significa que vc pode alterar gráficos já feitos usando "+"
+
+
+```{r}
+meu_grafico = ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+ggplot - objetos graficos
+=======================================================
+left: 60%
+
+Algumas opções comuns:
+
+```{r}
+meu_grafico = meu_grafico + 
+    labs(x = "GDP per capta", 
+         y = "Expectativa de vida")
+
+meu_grafico = meu_grafico + 
+  theme(text = element_text(size = 30), 
+    legend.title = 
+        element_text(face = "italic")) +
+  scale_color_discrete(name = "Continente")
+                                  
+```
+
+***
+
+```{r}
+meu_grafico
+```
+
+ggplot - temas
+=======================================================
+left: 30%
+
+Temas prontos!
+
+```{r}
+meu_grafico = meu_grafico + theme_bw()
+```
+
+***
+
+```{r}
+meu_grafico
+```
+
+ggplot - temas
+=======================================================
+
+Temas prontos!
+
+```{r}
+library(ggthemes)
+meu_grafico = ggplot(gapminder, 
+ aes(x = log(gdpPercap), 
+     y = log(lifeExp))) + 
+  geom_point(size = 3, 
+  aes(shape = continent)) + 
+  theme_wsj()
+```
+
+***
+
+```{r}
+meu_grafico
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - regressão linear 
+
+```{r}
+meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_smooth(method = "lm") 
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - regressão linear por continente
+
+```{r}
+meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_smooth(method = "lm", aes(color = continent)) 
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - boxplot
+
+```{r}
+meu_grafico = ggplot(gapminder, 
+  aes(year, lifeExp, 
+  group = interaction(year, 
+                continent), 
+  color = continent)) 
+  
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_boxplot()
+```
+
+ggplot - combinando tipos de gráficos
+=======================================================
+
+ - boxplot
+
+```{r}
+meu_grafico = ggplot(gapminder, 
+  aes(year, lifeExp, 
+  group = interaction(year, 
+                continent), 
+  color = continent)) 
+  
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_boxplot() + geom_smooth(method = "lm", aes(group = continent)) + theme_classic()
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+```{r, eval=FALSE}
+geom_histogram()
+geom_jitter()
+geom_text(aes(label = coluna_texto))
+geom_violin()
+...
+```

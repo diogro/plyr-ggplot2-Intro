@@ -63,13 +63,13 @@ print(simple_list)
 
 ```
 $zero
-[1] -0.8765074 -0.2702867  1.4045509  0.5706681  1.1573349
+[1]  0.370976067  0.946874433  1.137400307  0.007510545 -0.246431898
 
 $cinco
-[1] 6.002638 4.555629 4.851266 4.447016 4.089054
+[1] 4.153868 5.812100 5.197216 4.708775 4.712682
 
 $dez
-[1]  8.884207 10.800752  9.012583 10.768516 10.690594
+[1] 10.08417 10.82555 10.18764 11.50417 10.17117
 ```
 
 l_ply
@@ -84,13 +84,13 @@ llply(simple_list, sum)
 
 ```
 $zero
-[1] 1.98576
+[1] 2.216329
 
 $cinco
-[1] 23.9456
+[1] 24.58464
 
 $dez
-[1] 50.15665
+[1] 52.7727
 ```
 
 ```r
@@ -109,7 +109,7 @@ laply(simple_list, mean)
 ```
 
 ```
-[1]  0.397152  4.789121 10.031330
+[1]  0.4432659  4.9169281 10.5545408
 ```
 
 ```r
@@ -117,10 +117,10 @@ ldply(simple_list, quantile)
 ```
 
 ```
-    .id         0%        25%        50%       75%      100%
-1  zero -0.8765074 -0.2702867  0.5706681  1.157335  1.404551
-2 cinco  4.0890540  4.4470155  4.5556294  4.851266  6.002638
-3   dez  8.8842066  9.0125834 10.6905944 10.768516 10.800752
+    .id         0%          25%        50%        75%     100%
+1  zero -0.2464319  0.007510545  0.3709761  0.9468744  1.13740
+2 cinco  4.1538680  4.708774862  4.7126818  5.1972161  5.81210
+3   dez 10.0841663 10.171172746 10.1876439 10.8255485 11.50417
 ```
 
 l_ply
@@ -134,10 +134,10 @@ laply(simple_list, identity)
 ```
 
 ```
-              1          2        3          4         5
-[1,] -0.8765074 -0.2702867 1.404551  0.5706681  1.157335
-[2,]  6.0026380  4.5556294 4.851266  4.4470155  4.089054
-[3,]  8.8842066 10.8007520 9.012583 10.7685156 10.690594
+              1          2         3            4          5
+[1,]  0.3709761  0.9468744  1.137400  0.007510545 -0.2464319
+[2,]  4.1538680  5.8120997  5.197216  4.708774862  4.7126818
+[3,] 10.0841663 10.8255485 10.187644 11.504172412 10.1711727
 ```
 
 
@@ -146,10 +146,10 @@ ldply(simple_list, identity)
 ```
 
 ```
-    .id         V1         V2       V3         V4        V5
-1  zero -0.8765074 -0.2702867 1.404551  0.5706681  1.157335
-2 cinco  6.0026380  4.5556294 4.851266  4.4470155  4.089054
-3   dez  8.8842066 10.8007520 9.012583 10.7685156 10.690594
+    .id         V1         V2        V3           V4         V5
+1  zero  0.3709761  0.9468744  1.137400  0.007510545 -0.2464319
+2 cinco  4.1538680  5.8120997  5.197216  4.708774862  4.7126818
+3   dez 10.0841663 10.8255485 10.187644 11.504172412 10.1711727
 ```
 
 a_ply
@@ -590,17 +590,17 @@ dlply(dentus, ~ species, '[', 1:4) %>%
 
 ```
   Species MeanSquaredCorrelation      pc1%       ICV respondability
-1       A             0.26304221 0.5942705 1.0301592      1.2490163
-2       B             0.12459035 0.4659021 0.7065384      1.1306214
-3       C             0.15157218 0.4865811 0.7509757      1.1403691
-4       D             0.42069839 0.7331679 1.2971322      1.3528915
-5       E             0.04036267 0.4049835 0.4711963      0.9313823
+1       A             0.26304221 0.5942705 1.0301592      1.2184202
+2       B             0.12459035 0.4659021 0.7065384      1.1001694
+3       C             0.15157218 0.4865811 0.7509757      1.1670278
+4       D             0.42069839 0.7331679 1.2971322      1.3457091
+5       E             0.04036267 0.4049835 0.4711963      0.9445442
   evolvability conditional.evolvability  autonomy flexibility constraints
-1    1.0121298                0.5059610 0.5156512   0.7771443   0.7500479
-2    1.0071508                0.7359557 0.7273913   0.8786104   0.6679822
-3    1.0024083                0.6633771 0.6504096   0.8637795   0.6633657
-4    1.0262309                0.4761545 0.5380556   0.7362017   0.8526304
-5    0.8845684                0.7883935 0.8918602   0.9483844   0.6021797
+1    0.9787216                0.4804369 0.5147829   0.7696308   0.7541552
+2    0.9793506                0.7177652 0.7338283   0.8795195   0.6413520
+3    1.0277034                0.6757720 0.6456454   0.8666331   0.6801044
+4    1.0183773                0.4699398 0.5400998   0.7366581   0.8506171
+5    0.8972357                0.7999347 0.8913302   0.9480199   0.6200373
 ```
 
 ggplot2
@@ -665,3 +665,186 @@ ggplot - mudando cores
 ***
 
 ![plot of chunk continent](slides-figure/continent-1.png) 
+
+ggplot - objetos graficos
+=======================================================
+
+- No ggplot os objetos gráficos podem ser manipulados ou armazenados, diferente dos plots padrão onde os gráficos são "efeitos colaterais"
+
+- Isso significa que vc pode alterar gráficos já feitos usando "+"
+
+
+
+```r
+meu_grafico = ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+ggplot - objetos graficos
+=======================================================
+left: 60%
+
+Algumas opções comuns:
+
+
+```r
+meu_grafico = meu_grafico + 
+    labs(x = "GDP per capta", 
+         y = "Expectativa de vida")
+
+meu_grafico = meu_grafico + 
+  theme(text = element_text(size = 30), 
+    legend.title = 
+        element_text(face = "italic")) +
+  scale_color_discrete(name = "Continente")
+```
+
+***
+
+
+```r
+meu_grafico
+```
+
+![plot of chunk unnamed-chunk-36](slides-figure/unnamed-chunk-36-1.png) 
+
+ggplot - temas
+=======================================================
+left: 30%
+
+Temas prontos!
+
+
+```r
+meu_grafico = meu_grafico + theme_bw()
+```
+
+***
+
+
+```r
+meu_grafico
+```
+
+![plot of chunk unnamed-chunk-38](slides-figure/unnamed-chunk-38-1.png) 
+
+ggplot - temas
+=======================================================
+
+Temas prontos!
+
+
+```r
+library(ggthemes)
+meu_grafico = ggplot(gapminder, 
+ aes(x = log(gdpPercap), 
+     y = log(lifeExp))) + 
+  geom_point(size = 3, 
+  aes(shape = continent)) + 
+  theme_wsj()
+```
+
+***
+
+
+```r
+meu_grafico
+```
+
+![plot of chunk unnamed-chunk-40](slides-figure/unnamed-chunk-40-1.png) 
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - regressão linear 
+
+
+```r
+meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+***
+ 
+
+```r
+meu_grafico + geom_smooth(method = "lm") 
+```
+
+![plot of chunk unnamed-chunk-42](slides-figure/unnamed-chunk-42-1.png) 
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - regressão linear por continente
+
+
+```r
+meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+***
+ 
+
+```r
+meu_grafico + geom_smooth(method = "lm", aes(color = continent)) 
+```
+
+![plot of chunk unnamed-chunk-44](slides-figure/unnamed-chunk-44-1.png) 
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - boxplot
+
+
+```r
+meu_grafico = ggplot(gapminder, 
+  aes(year, lifeExp, 
+  group = interaction(year, 
+                continent), 
+  color = continent)) 
+```
+
+***
+ 
+
+```r
+meu_grafico + geom_boxplot()
+```
+
+![plot of chunk unnamed-chunk-46](slides-figure/unnamed-chunk-46-1.png) 
+
+ggplot - combinando tipos de gráficos
+=======================================================
+
+ - boxplot
+
+
+```r
+meu_grafico = ggplot(gapminder, 
+  aes(year, lifeExp, 
+  group = interaction(year, 
+                continent), 
+  color = continent)) 
+```
+
+***
+ 
+
+```r
+meu_grafico + geom_boxplot() + geom_smooth(method = "lm", aes(group = continent)) + theme_classic()
+```
+
+![plot of chunk unnamed-chunk-48](slides-figure/unnamed-chunk-48-1.png) 
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+
+```r
+geom_histogram()
+geom_jitter()
+geom_text(aes(label = coluna_texto))
+geom_violin()
+...
+```
