@@ -17,7 +17,7 @@ Queremos aplicar uma mesma função em subconjuntos
 - Fácil de paralelizar
 - Com algumas facilidades importantes
 
-[Slides](https://github.com/diogro/plyr-ggplot2-Intro/blob/master/slides.md)
+https://github.com/diogro/plyr-ggplot2-Intro/blob/master/slides.md
 
 ***
 
@@ -204,10 +204,9 @@ O segundo argumento é um coluna do data.frame que será usada para subdividi-lo
 dlply(gapminder, 'country')[[1]]
 ``` 
 
-d_ply
+d_ply - Principal ponto de discórdia: 
 ========================================================
 
-Principal ponto de discórdia: 
   - O data.frame é subdividido de acordo com uma (ou mais) coluna(s) de indicadores, mas os "sub"-data.frames ainda contém essas colunas!
 
 ```{r}
@@ -235,7 +234,7 @@ head(ddply(gapminder, 'country', mean))
 A função numcolwise() resolve esse problema, mas ela é aplicada na função!!
 
 ```{r}
-head(ddply(gapminder, .(country), numcolwise(mean)))
+head(ddply(gapminder, 'country', numcolwise(mean)))
 ```
 
 
