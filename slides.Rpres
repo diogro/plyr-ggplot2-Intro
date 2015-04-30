@@ -244,7 +244,7 @@ d_ply
 A função .() permite omitir as aspas e fazer operações nas colunas:
 
 ```{r}
-head(ddply(gapminder, .(country, log(year)), numcolwise(mean)), 12)
+head(ddply(gapminder, .(continent, log(year)), numcolwise(mean)), 12)
 ``` 
 
 
@@ -254,7 +254,7 @@ d_ply
 Podemos também usar formulas:
 
 ```{r}
-head(ddply(gapminder, ~ country + log(year), numcolwise(mean)), 12)
+head(ddply(gapminder, ~ continent + year, numcolwise(mean)), 12)
 ``` 
 
 d_ply
