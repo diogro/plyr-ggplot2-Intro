@@ -84,13 +84,15 @@ Aesthetics
 Geometries
 =====================================================
 
-- Forma de representar os gráficos;
-  - Linhas
-  - Pontos
-  - Densidade
-  - Histograma
-  - Boxplot
-  - ...
+
+- Forma de representar os dados;
+- Definido pelas funções __geom_*__
+  - Linhas (__geom_lines()__, __geom_segment()__)
+  - Pontos (__geom_points()__, __geom_jitter()__)
+  - Densidade (__geom_density()__, __geom_raster()__, __geom_hex()__, __geom_density_ridges()__)
+  - Histograma (__geom_histogram()__)
+  - Boxplot (__geom_boxplot()__, __geom_violin()__)
+  - E grande elenco...
 
 ggplot mínimo
 =======================================================
