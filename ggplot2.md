@@ -6,6 +6,26 @@ font-family: 'Helvetica'
 width: 1366 
 height: 768
 
+Grammar of graphics
+======================================================
+left: 35%
+
+- Uma gramática define um conjunto de regras para uma linguagem. 
+- Essas regras definem como relacionar elementos para formar sentenças. 
+- A gramática permite criar gráficos utilizando uma sintaxe declarativa.
+
+
+***
+
+![](figures/book.jpg)
+
+
+Elementos da gramática
+======================================================
+
+![](figures/grammar_of_graphics.png)
+
+
 ggplot2
 ========================================================
 left: 35%
@@ -15,11 +35,6 @@ left: 35%
 ***
 
 ![plot of chunk intro](ggplot2-figure/intro-1.png)
-
-Grammar of graphics
-======================================================
-
-![](figures/grammar_of_graphics.png)
 
 Data
 =====================================================
@@ -88,6 +103,7 @@ Aesthetics
   - Eixos x e y;
   - Agrupamentos;
   - Cores;
+  - animação...
 
 Geometries
 =====================================================
@@ -114,6 +130,15 @@ ggplot(data_frame_entrada, aes(x = coluna_eixo_x,
 + geom_tipo_do_grafico(opcoes que não dependem dos dados, 
                        aes(opcoes que dependem))
 ```
+
+Scatter plot
+===================================================
+
+```r
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width)) + geom_point()
+```
+
+![plot of chunk unnamed-chunk-4](ggplot2-figure/unnamed-chunk-4-1.png)
 
 Facets
 ====================================================
@@ -198,7 +223,7 @@ meu_grafico = meu_grafico +
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-8](ggplot2-figure/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-9](ggplot2-figure/unnamed-chunk-9-1.png)
 
 ggplot - temas
 =======================================================
@@ -218,7 +243,7 @@ meu_grafico = meu_grafico + theme_bw()
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-10](ggplot2-figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-11](ggplot2-figure/unnamed-chunk-11-1.png)
 
 ggplot - temas
 =======================================================
@@ -243,7 +268,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-12](ggplot2-figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-13](ggplot2-figure/unnamed-chunk-13-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
@@ -262,7 +287,7 @@ meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + ge
 meu_grafico + geom_smooth(method = "lm") 
 ```
 
-![plot of chunk unnamed-chunk-14](ggplot2-figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-15](ggplot2-figure/unnamed-chunk-15-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
@@ -281,7 +306,7 @@ meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + ge
 meu_grafico + geom_smooth(method = "lm", aes(color = continent)) 
 ```
 
-![plot of chunk unnamed-chunk-16](ggplot2-figure/unnamed-chunk-16-1.png)
+![plot of chunk unnamed-chunk-17](ggplot2-figure/unnamed-chunk-17-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
@@ -304,7 +329,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico + geom_boxplot()
 ```
 
-![plot of chunk unnamed-chunk-18](ggplot2-figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-19](ggplot2-figure/unnamed-chunk-19-1.png)
 
 ggplot - combinando tipos de gráficos
 =======================================================
@@ -327,7 +352,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico + geom_boxplot() + geom_smooth(method = "lm", aes(group = continent)) + theme_classic()
 ```
 
-![plot of chunk unnamed-chunk-20](ggplot2-figure/unnamed-chunk-20-1.png)
+![plot of chunk unnamed-chunk-21](ggplot2-figure/unnamed-chunk-21-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================

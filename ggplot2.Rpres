@@ -6,6 +6,26 @@ font-family: 'Helvetica'
 width: 1366 
 height: 768
 
+Grammar of graphics
+======================================================
+left: 35%
+
+- Uma gramática define um conjunto de regras para uma linguagem. 
+- Essas regras definem como relacionar elementos para formar sentenças. 
+- A gramática permite criar gráficos utilizando uma sintaxe declarativa.
+
+
+***
+
+![](figures/book.jpg)
+
+
+Elementos da gramática
+======================================================
+
+![](figures/grammar_of_graphics.png)
+
+
 ggplot2
 ========================================================
 left: 35%
@@ -21,11 +41,6 @@ ggplot(gapminder, aes(year, lifeExp, group = interaction(year, continent), color
   geom_boxplot() + geom_jitter() + theme_bw() + labs(x = 'year', y = 'Life Expectancy') + 
   geom_smooth(aes(group = continent), method = 'lm')
 ```
-
-Grammar of graphics
-======================================================
-
-![](figures/grammar_of_graphics.png)
 
 Data
 =====================================================
@@ -64,6 +79,7 @@ Aesthetics
   - Eixos x e y;
   - Agrupamentos;
   - Cores;
+  - animação...
 
 Geometries
 =====================================================
@@ -88,6 +104,12 @@ ggplot(data_frame_entrada, aes(x = coluna_eixo_x,
                                color = coluna_das_cores)) 
 + geom_tipo_do_grafico(opcoes que não dependem dos dados, 
                        aes(opcoes que dependem))
+```
+
+Scatter plot
+===================================================
+```{r}
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width)) + geom_point()
 ```
 
 Facets
