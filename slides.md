@@ -65,13 +65,13 @@ print(simple_list)
 
 ```
 $zero
-[1]  2.0332830 -0.9049479  0.6946419 -1.0612683 -0.6079308
+[1]  0.6062865 -0.1161519 -1.0534530 -0.3483762  0.3767809
 
 $cinco
-[1] 5.304322 5.200123 4.997118 5.399886 5.800771
+[1] 3.881776 5.027231 4.400691 4.421378 3.660098
 
 $dez
-[1] 8.533094 9.264648 9.751221 8.040753 8.433201
+[1] 10.956109  8.934704 10.418534 10.625637 11.329749
 ```
 
 l_ply
@@ -86,13 +86,13 @@ llply(simple_list, sum)
 
 ```
 $zero
-[1] 0.1537778
+[1] -0.5349137
 
 $cinco
-[1] 26.70222
+[1] 21.39117
 
 $dez
-[1] 44.02292
+[1] 52.26473
 ```
 
 ```r
@@ -111,7 +111,7 @@ laply(simple_list, mean)
 ```
 
 ```
-[1] 0.03075556 5.34044398 8.80458353
+[1] -0.1069827  4.2782348 10.4529468
 ```
 
 ```r
@@ -119,10 +119,10 @@ ldply(simple_list, quantile)
 ```
 
 ```
-    .id        0%        25%        50%       75%     100%
-1  zero -1.061268 -0.9049479 -0.6079308 0.6946419 2.033283
-2 cinco  4.997118  5.2001233  5.3043216 5.3998856 5.800771
-3   dez  8.040753  8.4332014  8.5330944 9.2646475 9.751221
+    .id        0%        25%        50%        75%       100%
+1  zero -1.053453 -0.3483762 -0.1161519  0.3767809  0.6062865
+2 cinco  3.660098  3.8817761  4.4006909  4.4213775  5.0272310
+3   dez  8.934704 10.4185345 10.6256373 10.9561090 11.3297494
 ```
 
 l_ply
@@ -136,10 +136,10 @@ laply(simple_list, identity)
 ```
 
 ```
-            1          2         3         4          5
-[1,] 2.033283 -0.9049479 0.6946419 -1.061268 -0.6079308
-[2,] 5.304322  5.2001233 4.9971184  5.399886  5.8007711
-[3,] 8.533094  9.2646475 9.7512214  8.040753  8.4332014
+              1          2         3          4          5
+[1,]  0.6062865 -0.1161519 -1.053453 -0.3483762  0.3767809
+[2,]  3.8817761  5.0272310  4.400691  4.4213775  3.6600985
+[3,] 10.9561090  8.9347039 10.418534 10.6256373 11.3297494
 ```
 
 
@@ -148,10 +148,10 @@ ldply(simple_list, identity)
 ```
 
 ```
-    .id       V1         V2        V3        V4         V5
-1  zero 2.033283 -0.9049479 0.6946419 -1.061268 -0.6079308
-2 cinco 5.304322  5.2001233 4.9971184  5.399886  5.8007711
-3   dez 8.533094  9.2646475 9.7512214  8.040753  8.4332014
+    .id         V1         V2        V3         V4         V5
+1  zero  0.6062865 -0.1161519 -1.053453 -0.3483762  0.3767809
+2 cinco  3.8817761  5.0272310  4.400691  4.4213775  3.6600985
+3   dez 10.9561090  8.9347039 10.418534 10.6256373 11.3297494
 ```
 
 a_ply
@@ -364,12 +364,12 @@ str(gapminder)
 ```
 
 ```
-'data.frame':	1704 obs. of  6 variables:
+Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
- $ year     : num  1952 1957 1962 1967 1972 ...
+ $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
- $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+ $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
  $ gdpPercap: num  779 821 853 836 740 ...
 ```
  
@@ -590,18 +590,24 @@ dlply(dentus, ~ species, '[', 1:4) %>%
 ```
 
 ```
-  Species MeanSquaredCorrelation      pc1%       ICV respondability
-1       A             0.26304221 0.5942705 1.0301592      1.2208715
-2       B             0.12459035 0.4659021 0.7065384      1.1283414
-3       C             0.15157218 0.4865811 0.7509757      1.1356968
-4       D             0.42069839 0.7331679 1.2971322      1.3638349
-5       E             0.04036267 0.4049835 0.4711963      0.9328489
-  evolvability conditional.evolvability  autonomy flexibility constraints
-1    0.9872532                0.4915986 0.5185775   0.7776295   0.7318177
-2    1.0059573                0.7344412 0.7287692   0.8800182   0.6603558
-3    0.9970017                0.6584752 0.6499890   0.8614851   0.6719413
-4    1.0253554                0.4763524 0.5351399   0.7341142   0.8597069
-5    0.8848132                0.7871785 0.8900755   0.9469164   0.6137210
+  Species MeanSquaredCorrelation pc1.percent       ICV   EigenSD
+1       A             0.26304221   0.5942705 1.0301592 0.5128764
+2       B             0.12459035   0.4659021 0.7065384 0.3529736
+3       C             0.15157218   0.4865811 0.7509757 0.3893227
+4       D             0.42069839   0.7331679 1.2971322 0.6486127
+5       E             0.04036267   0.4049835 0.4711963 0.2009046
+  respondability evolvability conditional.evolvability  autonomy
+1      1.2642059    1.0215402                0.5045938 0.5057532
+2      1.1165769    0.9946417                0.7242415 0.7289379
+3      1.1563854    1.0150202                0.6666764 0.6454896
+4      1.3642412    1.0324602                0.4794912 0.5374666
+5      0.9280449    0.8821967                0.7879971 0.8940516
+  flexibility constraints
+1   0.7759619   0.7587724
+2   0.8805378   0.6454326
+3   0.8628844   0.6794536
+4   0.7373203   0.8588299
+5   0.9491812   0.5943266
 ```
 
 ggplot2
@@ -612,7 +618,7 @@ left: 35%
   
 ***
 
-![plot of chunk intro](slides-figure/intro-1.png) 
+![plot of chunk intro](slides-figure/intro-1.png)
 
 ggplot
 =======================================================
@@ -661,11 +667,11 @@ ggplot(gapminder, aes(x = log(gdpPercap),
 ggplot - mudando cores
 =======================================================
 
-![plot of chunk year](slides-figure/year-1.png) 
+![plot of chunk year](slides-figure/year-1.png)
 
 ***
 
-![plot of chunk continent](slides-figure/continent-1.png) 
+![plot of chunk continent](slides-figure/continent-1.png)
 
 ggplot - objetos graficos
 =======================================================
@@ -707,7 +713,7 @@ meu_grafico = meu_grafico +
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-36](slides-figure/unnamed-chunk-36-1.png) 
+![plot of chunk unnamed-chunk-36](slides-figure/unnamed-chunk-36-1.png)
 
 ggplot - temas
 =======================================================
@@ -727,7 +733,7 @@ meu_grafico = meu_grafico + theme_bw()
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-38](slides-figure/unnamed-chunk-38-1.png) 
+![plot of chunk unnamed-chunk-38](slides-figure/unnamed-chunk-38-1.png)
 
 ggplot - temas
 =======================================================
@@ -752,7 +758,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-40](slides-figure/unnamed-chunk-40-1.png) 
+![plot of chunk unnamed-chunk-40](slides-figure/unnamed-chunk-40-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
@@ -771,7 +777,7 @@ meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + ge
 meu_grafico + geom_smooth(method = "lm") 
 ```
 
-![plot of chunk unnamed-chunk-42](slides-figure/unnamed-chunk-42-1.png) 
+![plot of chunk unnamed-chunk-42](slides-figure/unnamed-chunk-42-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
@@ -790,7 +796,7 @@ meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + ge
 meu_grafico + geom_smooth(method = "lm", aes(color = continent)) 
 ```
 
-![plot of chunk unnamed-chunk-44](slides-figure/unnamed-chunk-44-1.png) 
+![plot of chunk unnamed-chunk-44](slides-figure/unnamed-chunk-44-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
@@ -813,7 +819,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico + geom_boxplot()
 ```
 
-![plot of chunk unnamed-chunk-46](slides-figure/unnamed-chunk-46-1.png) 
+![plot of chunk unnamed-chunk-46](slides-figure/unnamed-chunk-46-1.png)
 
 ggplot - combinando tipos de gráficos
 =======================================================
@@ -836,7 +842,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico + geom_boxplot() + geom_smooth(method = "lm", aes(group = continent)) + theme_classic()
 ```
 
-![plot of chunk unnamed-chunk-48](slides-figure/unnamed-chunk-48-1.png) 
+![plot of chunk unnamed-chunk-48](slides-figure/unnamed-chunk-48-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================

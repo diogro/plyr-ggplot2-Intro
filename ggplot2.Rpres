@@ -1,0 +1,308 @@
+A gramática dos gráficos: uma introdução usando ggplot2
+========================================================
+author: Diogo Melo
+date: 2019/10/29
+font-family: 'Helvetica'
+width: 1366 
+height: 768
+
+ggplot2
+========================================================
+left: 35%
+
+  "ggplot2 is a plotting system for R, based on the grammar of graphics, which tries to take the good parts of base and lattice graphics and none of the bad parts. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics."
+  
+***
+
+```{r intro, echo=FALSE}
+library(ggplot2)
+library(gapminder)
+ggplot(gapminder, aes(year, lifeExp, group = interaction(year, continent), color = continent)) + 
+  geom_boxplot() + geom_jitter() + theme_bw() + labs(x = 'year', y = 'Life Expectancy') + 
+  geom_smooth(aes(group = continent), method = 'lm')
+```
+
+Grammar of graphics
+======================================================
+
+![](figures/grammar_of_graphics.png)
+
+Data
+=====================================================
+
+- Dados a serem plotados;
+- Definido pelo argumento __data__
+- No caso do ggplot2, SEMPRE um __data.frame__;
+- Cada linha é uma observação;
+- Geralmente é melhor usar data.frames no formato "narrow";
+- Cores, grupos, separações em paineis são todas definidas por fatores (yay!!)
+
+Data - formato wide
+======================================================
+
+```{r}
+head(iris, 10)
+```
+
+Data - formato narrow
+======================================================
+
+```{r}
+library(tidyr)
+head(
+  gather(iris, trait, value, Sepal.Length:Petal.Width), 
+  10)
+```
+
+Aesthetics
+=====================================================
+
+- Relações entre aspectos gráficos e variáveis;
+- Definido pela função __aes()__
+- Na __aes()__, esses aspectos devem ser defindos pelos dados (por uma coluna do data.frame)
+- Define: 
+  - Eixos x e y;
+  - Agrupamentos;
+  - Cores;
+
+Geometries
+=====================================================
+
+- Forma de representar os gráficos;
+  - Linhas
+  - Pontos
+  - Densidade
+  - Histograma
+  - Boxplot
+  - ...
+
+ggplot mínimo
+=======================================================
+
+Regra geral:
+
+```{r, eval=FALSE}
+ggplot(data_frame_entrada, aes(x = coluna_eixo_x, 
+                               y = coluna_eixo_y,
+                               group = coluna_agrupadora, 
+                               color = coluna_das_cores)) 
++ geom_tipo_do_grafico(opcoes que não dependem dos dados, 
+                       aes(opcoes que dependem))
+```
+
+Facets
+====================================================
+
+Statistics
+====================================================
+
+Coordinates
+====================================================
+
+Theme
+====================================================
+
+
+
+
+ggplot - mudando cores
+=======================================================
+
+```{r, eval=FALSE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = year)) + geom_point()
+```
+
+```{r, eval=FALSE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = continent)) + geom_point()
+```
+
+ggplot - mudando cores
+=======================================================
+
+```{r year, echo=FALSE, figs.only=TRUE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = year)) + geom_point()
+```
+
+***
+
+```{r continent, echo=FALSE, figs.only=TRUE}
+ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp),
+                      group = country, 
+                      color = continent)) + geom_point()
+```
+
+ggplot - objetos graficos
+=======================================================
+
+- No ggplot os objetos gráficos podem ser manipulados ou armazenados, diferente dos plots padrão onde os gráficos são "efeitos colaterais"
+
+- Isso significa que vc pode alterar gráficos já feitos usando "+"
+
+
+```{r}
+meu_grafico = ggplot(gapminder, aes(x = log(gdpPercap), 
+                      y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+ggplot - objetos graficos
+=======================================================
+left: 60%
+
+Algumas opções comuns:
+
+```{r}
+meu_grafico = meu_grafico + 
+    labs(x = "GDP per capta", 
+         y = "Expectativa de vida")
+
+meu_grafico = meu_grafico + 
+  theme(text = element_text(size = 30), 
+    legend.title = 
+        element_text(face = "italic")) +
+  scale_color_discrete(name = "Continente")
+                                  
+```
+
+***
+
+```{r}
+meu_grafico
+```
+
+ggplot - temas
+=======================================================
+left: 30%
+
+Temas prontos!
+
+```{r}
+meu_grafico = meu_grafico + theme_bw()
+```
+
+***
+
+```{r}
+meu_grafico
+```
+
+ggplot - temas
+=======================================================
+
+Temas prontos!
+
+```{r}
+library(ggthemes)
+meu_grafico = ggplot(gapminder, 
+ aes(x = log(gdpPercap), 
+     y = log(lifeExp))) + 
+  geom_point(size = 3, 
+  aes(shape = continent)) + 
+  theme_wsj()
+```
+
+***
+
+```{r}
+meu_grafico
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - regressão linear 
+
+```{r}
+meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_smooth(method = "lm") 
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - regressão linear por continente
+
+```{r}
+meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_smooth(method = "lm", aes(color = continent)) 
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+ - boxplot
+
+```{r}
+meu_grafico = ggplot(gapminder, 
+  aes(year, lifeExp, 
+  group = interaction(year, 
+                continent), 
+  color = continent)) 
+  
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_boxplot()
+```
+
+ggplot - combinando tipos de gráficos
+=======================================================
+
+ - boxplot
+
+```{r}
+meu_grafico = ggplot(gapminder, 
+  aes(year, lifeExp, 
+  group = interaction(year, 
+                continent), 
+  color = continent)) 
+  
+```
+
+***
+ 
+```{r}
+meu_grafico + geom_boxplot() + geom_smooth(method = "lm", aes(group = continent)) + theme_classic()
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+```{r, eval=FALSE}
+geom_histogram()
+geom_jitter()
+geom_text(aes(label = coluna_texto))
+geom_violin()
+geom_errorbar(aes(ymax, ymin))
+...
+```
+
+ggplot - outros tipos de gráficos
+=======================================================
+
+Documentação
+
+- http://docs.ggplot2.org/current/
+- How to format plots for publication using ggplot2 - http://www.noamross.net/blog/2013/11/20/formatting-plots-for-pubs.html 
+- http://stackoverflow.com/
