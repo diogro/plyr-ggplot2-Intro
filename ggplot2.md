@@ -10,9 +10,9 @@ Grammar of graphics
 ======================================================
 left: 35%
 
-- Uma gramática define um conjunto de regras para uma linguagem. 
-- Essas regras definem como relacionar elementos para formar sentenças. 
-- A gramática permite criar gráficos utilizando uma sintaxe declarativa.
+- Uma gramática define um conjunto de regras para uma linguagem
+- Essas regras definem como relacionar elementos para formar sentenças
+- A gramática permite criar gráficos utilizando uma sintaxe declarativa
 
 
 ***
@@ -40,11 +40,10 @@ Data
 =====================================================
 
 - Dados a serem plotados;
-- Definido pelo argumento __data__
-- No caso do ggplot2, SEMPRE um __data.frame__;
+- Definido pelo argumento __data__;
+- No ggplot2, SEMPRE um __data.frame__;
 - Cada linha é uma observação;
-- Geralmente é melhor usar data.frames no formato "narrow";
-- Cores, grupos, separações em paineis são todas definidas por fatores (yay!!)
+- Frequentemente é necessario alternar __data.frame__ no formato _narrow_ e _wide_;
 
 Data - formato wide
 ======================================================
@@ -93,6 +92,19 @@ head(
 10  setosa Sepal.Length   4.9
 ```
 
+Conversão narrow/wide
+====================================================
+
+- Várias opções...
+- Vintage:
+  - pacotes __reshape__, __reshape2__
+    - Funções __melt()__ (wide -> narrow) , __cast()__ (narrow -> wide)
+- Moderno:
+  - pacote __tidyr__
+  - Funções:
+    - __gather()__, __pivot_longer()__ (wide -> narrow)
+    - __spread()__, __pivot_wider()__ (narrow -> wide)
+
 Aesthetics
 =====================================================
 
@@ -103,14 +115,13 @@ Aesthetics
   - Eixos x e y;
   - Agrupamentos;
   - Cores;
-  - animação...
+  - Animações...
 
 Geometries
 =====================================================
 
-
 - Forma de representar os dados;
-- Definido pelas funções __geom_*__
+- Definido pelas funções __geom_*__:
   - Linhas (__geom_lines()__, __geom_segment()__)
   - Pontos (__geom_points()__, __geom_jitter()__)
   - Densidade (__geom_density()__, __geom_raster()__, __geom_hex()__, __geom_density_ridges()__)
@@ -142,48 +153,131 @@ ggplot(data = iris, aes(Sepal.Length, Sepal.Width)) + geom_point()
 
 ![plot of chunk unnamed-chunk-4](ggplot2-figure/unnamed-chunk-4-1.png)
 
+Scatter plot - Species mapeado nas cores
+===================================================
+
+```r
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, 
+                        color = Species)) + 
+  geom_point()
+```
+
+![plot of chunk unnamed-chunk-5](ggplot2-figure/unnamed-chunk-5-1.png)
+
+Histograma
+===================================================
+
+
+```r
+ggplot(diamonds, aes(price)) + geom_histogram(bins = 500)
+```
+
+![plot of chunk unnamed-chunk-6](ggplot2-figure/unnamed-chunk-6-1.png)
+
 Facets
 ====================================================
+
+- Criar mais de um gráfico independente;
+- Separa dados em sub-gráficos a partir de uma variável categórica;
+- Geralmente dado por uma formula, pode ser uma ou mais variáveis:
+ - Uma variável: __facet_wrap()__
+ - Duas ou mais variáveis: __facet_grid()__
+ 
+Facets
+===================================================
+
+
+```r
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, 
+                        color = Species)) + 
+  geom_point() + facet_wrap(~Species)
+```
+
+![plot of chunk unnamed-chunk-7](ggplot2-figure/unnamed-chunk-7-1.png)
 
 Statistics
 ====================================================
 
+- Elemento derivado dos dados brutos;
+- No geral são embutidos em algum geom_
+- Resumos usando estatísticas: __geom_boxplor()__
+- Funções de tendencia: __geom_smooth()__
+- Reta de regressão: __geom_smooth(method="lm")__
+
+Statistics - regressão não-linear (loess)
+====================================================
+
+
+```r
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, 
+                        color = Species)) + 
+  geom_point() + geom_smooth()
+```
+
+![plot of chunk unnamed-chunk-8](ggplot2-figure/unnamed-chunk-8-1.png)
+
+Statistics - regressão linear (lm)
+====================================================
+
+
+```r
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width, 
+                        color = Species)) + 
+  geom_point() + geom_smooth(method = "lm")
+```
+
+![plot of chunk unnamed-chunk-9](ggplot2-figure/unnamed-chunk-9-1.png)
+
+Statistics - boxplot + jitter
+====================================================
+
+
+```r
+library(tidyr)
+narrow_iris = pivot_longer(iris, -Species)
+ggplot(narrow_iris, aes(Species, value)) + 
+  geom_boxplot() + geom_jitter(width = 0.2, height = 0) + facet_wrap(~name, scales="free")
+```
+
+![plot of chunk unnamed-chunk-10](ggplot2-figure/unnamed-chunk-10-1.png)
+
+Statistics - boxplot + dotplot
+====================================================
+
+
+```r
+library(tidyr)
+narrow_iris = pivot_longer(iris, -Species)
+ggplot(narrow_iris, aes(Species, value)) + 
+  geom_boxplot() + geom_dotplot(binaxis = 'y',
+        dotsize = 0.5,
+        stackdir = 'center') + facet_wrap(~name, scales="free")
+```
+
+![plot of chunk unnamed-chunk-11](ggplot2-figure/unnamed-chunk-11-1.png)
+
 Coordinates
 ====================================================
+
+- Mudanças nos eixos e escalas (cor, forma, tamanho...)
+- Definido pelas funções scale_
+- Eixos: __scale_y_continous()__, __scale_x_discrete()__, ... 
+- Escalas de cor: scale\_color\_* (__scale_color_continuous__, scale_color_discrete__)
+
 
 Theme
 ====================================================
 
+- Tudo que não tem nada a ver com os dados
+  - Fontes;
+  - Tamanhos;
+  - Fundo;
+  - Posição de legendas e texto;
+  
+- Definido pela função theme()
+- Ou usando temas prontos!
+  - Tem vários, é ótimo!
 
-
-
-ggplot - mudando cores
-=======================================================
-
-
-```r
-ggplot(gapminder, aes(x = log(gdpPercap), 
-                      y = log(lifeExp),
-                      group = country, 
-                      color = year)) + geom_point()
-```
-
-
-```r
-ggplot(gapminder, aes(x = log(gdpPercap), 
-                      y = log(lifeExp),
-                      group = country, 
-                      color = continent)) + geom_point()
-```
-
-ggplot - mudando cores
-=======================================================
-
-![plot of chunk year](ggplot2-figure/year-1.png)
-
-***
-
-![plot of chunk continent](ggplot2-figure/continent-1.png)
 
 ggplot - objetos graficos
 =======================================================
@@ -225,7 +319,7 @@ meu_grafico = meu_grafico +
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-9](ggplot2-figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-14](ggplot2-figure/unnamed-chunk-14-1.png)
 
 ggplot - temas
 =======================================================
@@ -245,7 +339,7 @@ meu_grafico = meu_grafico + theme_bw()
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-11](ggplot2-figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-16](ggplot2-figure/unnamed-chunk-16-1.png)
 
 ggplot - temas
 =======================================================
@@ -270,104 +364,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-13](ggplot2-figure/unnamed-chunk-13-1.png)
-
-ggplot - outros tipos de gráficos
-=======================================================
-
- - regressão linear 
-
-
-```r
-meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
-```
-
-***
- 
-
-```r
-meu_grafico + geom_smooth(method = "lm") 
-```
-
-![plot of chunk unnamed-chunk-15](ggplot2-figure/unnamed-chunk-15-1.png)
-
-ggplot - outros tipos de gráficos
-=======================================================
-
- - regressão linear por continente
-
-
-```r
-meu_grafico = ggplot(gapminder,  aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
-```
-
-***
- 
-
-```r
-meu_grafico + geom_smooth(method = "lm", aes(color = continent)) 
-```
-
-![plot of chunk unnamed-chunk-17](ggplot2-figure/unnamed-chunk-17-1.png)
-
-ggplot - outros tipos de gráficos
-=======================================================
-
- - boxplot
-
-
-```r
-meu_grafico = ggplot(gapminder, 
-  aes(year, lifeExp, 
-  group = interaction(year, 
-                continent), 
-  color = continent)) 
-```
-
-***
- 
-
-```r
-meu_grafico + geom_boxplot()
-```
-
-![plot of chunk unnamed-chunk-19](ggplot2-figure/unnamed-chunk-19-1.png)
-
-ggplot - combinando tipos de gráficos
-=======================================================
-
- - boxplot
-
-
-```r
-meu_grafico = ggplot(gapminder, 
-  aes(year, lifeExp, 
-  group = interaction(year, 
-                continent), 
-  color = continent)) 
-```
-
-***
- 
-
-```r
-meu_grafico + geom_boxplot() + geom_smooth(method = "lm", aes(group = continent)) + theme_classic()
-```
-
-![plot of chunk unnamed-chunk-21](ggplot2-figure/unnamed-chunk-21-1.png)
-
-ggplot - outros tipos de gráficos
-=======================================================
-
-
-```r
-geom_histogram()
-geom_jitter()
-geom_text(aes(label = coluna_texto))
-geom_violin()
-geom_errorbar(aes(ymax, ymin))
-...
-```
+![plot of chunk unnamed-chunk-18](ggplot2-figure/unnamed-chunk-18-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
