@@ -188,9 +188,8 @@ Facets
 
 
 ```r
-ggplot(data = iris, aes(Sepal.Length, Sepal.Width, 
-                        color = Species)) + 
-  geom_point() + facet_wrap(~Species)
+ggplot(data = iris, aes(Sepal.Length, Sepal.Width)) + 
+  geom_point(aes(color = Species)) + facet_wrap(~Species)
 ```
 
 ![plot of chunk unnamed-chunk-7](ggplot2-figure/unnamed-chunk-7-1.png)
@@ -200,9 +199,9 @@ Statistics
 
 - Elemento derivado dos dados brutos;
 - No geral são embutidos em algum geom_
-- Resumos usando estatísticas: __geom_boxplor()__
-- Funções de tendencia: __geom_smooth()__
-- Reta de regressão: __geom_smooth(method="lm")__
+- Resumos usando estatísticas: __geom_boxplot()__
+- Funções de regressão: __geom_smooth()__
+- Reta de regressão linear: __geom_smooth(method="lm")__
 
 Statistics - regressão não-linear (loess)
 ====================================================
@@ -262,7 +261,9 @@ Coordinates
 - Mudanças nos eixos e escalas (cor, forma, tamanho...)
 - Definido pelas funções scale_
 - Eixos: __scale_y_continous()__, __scale_x_discrete()__, ... 
-- Escalas de cor: scale\_color\_* (__scale_color_continuous__, scale_color_discrete__)
+- Escalas de cor: scale\_color\_* (__scale_color_continuous()__, __scale_color_discrete()__)
+- Escalas de shape: scale\_shape\_* (__scale_shape_continuous()__, __scale_shape_discrete()__)
+
 
 
 Theme
@@ -281,6 +282,7 @@ Theme
 
 ggplot - objetos graficos
 =======================================================
+left: 60%
 
 - No ggplot os objetos gráficos podem ser manipulados ou armazenados, diferente dos plots padrão onde os gráficos são "efeitos colaterais"
 
@@ -289,9 +291,18 @@ ggplot - objetos graficos
 
 
 ```r
-meu_grafico = ggplot(gapminder, aes(x = log(gdpPercap), 
-                      y = log(lifeExp))) + geom_point(aes(color = continent))
+library(gapminder)
+meu_grafico = ggplot(gapminder, aes(x = log(gdpPercap), y = log(lifeExp))) + geom_point(aes(color = continent))
 ```
+
+*** 
+
+
+```r
+meu_grafico
+```
+
+![plot of chunk unnamed-chunk-13](ggplot2-figure/unnamed-chunk-13-1.png)
 
 ggplot - objetos graficos
 =======================================================
@@ -305,11 +316,7 @@ meu_grafico = meu_grafico +
     labs(x = "GDP per capta", 
          y = "Expectativa de vida")
 
-meu_grafico = meu_grafico + 
-  theme(text = element_text(size = 30), 
-    legend.title = 
-        element_text(face = "italic")) +
-  scale_color_discrete(name = "Continente")
+meu_grafico = meu_grafico + theme(text = element_text(size = 30), legend.title = element_text(face = "italic")) + scale_color_discrete(name = "Continente")
 ```
 
 ***
@@ -319,7 +326,7 @@ meu_grafico = meu_grafico +
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-14](ggplot2-figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-15](ggplot2-figure/unnamed-chunk-15-1.png)
 
 ggplot - temas
 =======================================================
@@ -329,7 +336,8 @@ Temas prontos!
 
 
 ```r
-meu_grafico = meu_grafico + theme_bw()
+library(cowplot)
+meu_grafico = meu_grafico + theme_cowplot()
 ```
 
 ***
@@ -339,7 +347,7 @@ meu_grafico = meu_grafico + theme_bw()
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-16](ggplot2-figure/unnamed-chunk-16-1.png)
+![plot of chunk unnamed-chunk-17](ggplot2-figure/unnamed-chunk-17-1.png)
 
 ggplot - temas
 =======================================================
@@ -364,7 +372,7 @@ meu_grafico = ggplot(gapminder,
 meu_grafico
 ```
 
-![plot of chunk unnamed-chunk-18](ggplot2-figure/unnamed-chunk-18-1.png)
+![plot of chunk unnamed-chunk-19](ggplot2-figure/unnamed-chunk-19-1.png)
 
 ggplot - outros tipos de gráficos
 =======================================================
