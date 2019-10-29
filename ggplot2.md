@@ -10,9 +10,9 @@ Grammar of graphics
 ======================================================
 left: 35%
 
-- Uma gramática define um conjunto de regras para uma linguagem
-- Essas regras definem como relacionar elementos para formar sentenças
-- A gramática permite criar gráficos utilizando uma sintaxe declarativa
+- Uma gramática define um conjunto de regras para uma linguagem.
+- Essas regras definem como relacionar elementos para formar sentenças.
+- A gramática permite criar gráficos utilizando uma sintaxe declarativa.
 
 
 ***
