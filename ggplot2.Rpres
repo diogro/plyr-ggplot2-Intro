@@ -315,6 +315,7 @@ ggplot - outros tipos de gráficos
 
 Documentação
 
-- http://docs.ggplot2.org/current/
+- Documentação oficial (help não costuma ajudar) - http://docs.ggplot2.org/current/
+- Livro de visualização moderno feito inteiro em ggplot2 - https://serialmentor.com/dataviz/ 
 - How to format plots for publication using ggplot2 - http://www.noamross.net/blog/2013/11/20/formatting-plots-for-pubs.html 
 - http://stackoverflow.com/
